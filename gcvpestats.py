@@ -40,6 +40,7 @@ class Correlate_within_one_PEoutput_csv(tk.Frame):
     PreciseEdge csv Output data Statistical Analyses:
     COMPARES VALUES WITHIN ONE PRECISE-EDGE CSV OUTPUT FILE WITH MANUAL DATA COLUMNS ADDED. CONVERTS TO DF.
     Correlate selected variables within a df to each other.
+    Data file in repo is 'AdaptMapReport-GC-with-manualMeasures.csv' OR 'AdaptMapReport-PE-with-manualMeasures.csv'.
     '''
 
     def __init__(self,):
@@ -47,13 +48,15 @@ class Correlate_within_one_PEoutput_csv(tk.Frame):
         super().__init__()
 
         # User select csv file, make df
-        file_path = os.path.abspath(filedialog.askopenfilename())
-        print(file_path)
+        self.file_path = os.path.abspath(filedialog.askopenfilename())
+        print(self.file_path)
         
-        head, tail = os.path.split(file_path)
-        self.outstrokes = os.path.sep.join([head, 'GCvsPEtests.txt'])
+        self.head, tail = os.path.split(self.file_path)
+        self.head = os.path.sep.join([self.head, 'plots-stats'])
+        self.outstrokes = os.path.sep.join([self.head, 'GCvsPEtests.txt'])
+        print('outstrokes', self.outstrokes)
 
-        self.df = pd.read_csv(file_path, header=0)
+        self.df = pd.read_csv(self.file_path, header=0)
         self.df_columns = list(self.df.columns)
 
         nocorrs = ['sampleID', 'allphotos','crosschk']
@@ -66,9 +69,6 @@ class Correlate_within_one_PEoutput_csv(tk.Frame):
             print('you must select a csv output from PE software, \nwith manual measure columns added.')
             quit()
 
-        self.outcorr = os.path.sep.join([head, 'correlations.csv'])
-        self.outcorrpng = os.path.sep.join([head, 'correlations.png'])
-
         self.initUI()
 
         ###################
@@ -79,8 +79,6 @@ class Correlate_within_one_PEoutput_csv(tk.Frame):
         self.pack(fill=tk.BOTH, expand=1)
 
         # Data, parameters required
-        print('\nout to: ', self.outcorr)
-
         try:
             # manual body measures desired for correlations [make this a check boxes option?]
             self.tape = self.df['tape']
@@ -115,8 +113,26 @@ class Correlate_within_one_PEoutput_csv(tk.Frame):
         self.master.deiconify()
         self.master.attributes('-topmost', True)
         self.master.focus_force()
+    
+
+        if 'AdaptMapReport-GC-with-manualMeasures.csv' in self.file_path:
+            suggest = 'GC vs Manual Pearson Correlations'
+            self.outcorr = os.path.sep.join([self.head, 'GC-digital-v-manual-correlations.csv'])
+            self.outcorrpng = os.path.sep.join([self.head, 'GC-digital-v-manual-correlations.png'])
+
+        elif 'AdaptMapReport-PE-with-manualMeasures.csv' in self.file_path:
+            suggest = 'PE vs Manual Pearson Correlations'
+            self.outcorr = os.path.sep.join([self.head, 'PE-digital-v-manual-correlations.csv'])
+            self.outcorrpng = os.path.sep.join([self.head, 'PE-digital-v-manual-correlations.png'])
+
+        else:
+            suggest = 'Pearson Correlations'
+            self.outcorr = os.path.sep.join([self.head, 'digital-v-manual-correlations.csv'])
+            self.outcorrpng = os.path.sep.join([self.head, 'digital-v-manual-correlations.png'])
+
+        print('\nout to: ', self.outcorr)
         
-        title = simpledialog.askstring(title='Heatmap Graph Title', prompt='Enter the Heatmap Graph Title you would like.\n\n Suggest, "Pearson Correlations".', initialvalue="Pearson Correlations", parent=self.master)
+        title = simpledialog.askstring(title='Heatmap Graph Title', prompt='Enter the Heatmap Graph Title you would like.\n\n Suggest, "Pearson Correlations".', initialvalue=suggest, parent=self.master)
         self.master.focus_force()
         self.master.destroy()
     
@@ -140,6 +156,7 @@ class Correlation_btw_two_PEoutput_csvs(tk.Frame):
     PreciseEdge csv Output data Statistical Analyses:
     COMPARES TWO PRECISE-EDGE CSV OUTPUT FILES WITH MANUAL DATA COLUMNS ADDED. CONVERTS TO TWO DFs.
     Correlate selected variables within a ONE df to the same variables within the A SECOND df.
+    Data files in repo ARE 'AdaptMapReport-GC-with-manualMeasures.csv' AND 'AdaptMapReport-PE-with-manualMeasures.csv'.
     '''
 
     def __init__(self, ):
@@ -151,7 +168,10 @@ class Correlation_btw_two_PEoutput_csvs(tk.Frame):
         print(file_path1)
         
         head1, tail1 = os.path.split(file_path1)
+        head1 = os.path.sep.join([head1, 'plots-stats'])
+        print('HEAD1', head1)
         self.outcorr1 = os.path.sep.join([head1, 'correlations1.csv'])
+        print('outcorr1', self.outcorr1)
         self.outcorrpng1 = os.path.sep.join([head1, 'correlations1.png'])
         self.df1 = pd.read_csv(file_path1, header=0)
 
@@ -167,8 +187,12 @@ class Correlation_btw_two_PEoutput_csvs(tk.Frame):
         print(file_path2)
 
         head2, tail2 = os.path.split(file_path2)
-        self.outcorr2 = os.path.sep.join([head2, 'correlations.csv'])
-        self.outcorrpng2 = os.path.sep.join([head2, 'correlations.png'])
+        head2= os.path.sep.join([head2, 'plots-stats'])
+        print("HEAD2", head2)
+        self.outcorr2 = os.path.sep.join([head2, 'correlations2.csv'])
+        #self.outcorr2 = os.path.sep.join(['plots-stats', self.outcorr2])
+        self.outcorrpng2 = os.path.sep.join([head2, 'correlations2.png'])
+        #self.outcorrpng2 = os.path.sep.join(['plots-stats', self.outcorrpng2])
         self.df2 = pd.read_csv(file_path2, header=0)
 
         try:
@@ -191,9 +215,7 @@ class Correlation_btw_two_PEoutput_csvs(tk.Frame):
 
         # save correlation table to csv file
         headf, tailf = os.path.split(self.outcorr1)
-        headf, tailf = os.path.split(headf)
-        headf, tailf = os.path.split(headf)
-        self.saveCorrGCvPE = os.path.sep.join([headf, 'GCvPE-oorrelations.txt' ])
+        self.saveCorrGCvPE = os.path.sep.join([headf, 'GCvPE-correlations.txt' ])
         self.df1vdf2corr.to_csv(self.saveCorrGCvPE)
         print('saveCorrGCvPE\n', self.saveCorrGCvPE)
 
@@ -208,7 +230,8 @@ class Compare_tworuns_strokecount_cols_in_one_csv(tk.Frame):
     '''
     STROKE COUNT DATA Statistical Analyses:
     COMPARES TWO RUNS OF STROKE COUNTS ONE SROKE DATA SET PER COLUMN IN ONE CSV. CONVERTS TO TWO DFs.
-    Correlate each variable within a ONE df to every variable within the A SECOND df..
+    Correlate each variable within a ONE df to every variable within the A SECOND df.
+    Data file in repo is 'strokes-GC-PE.csv'.
     '''
 
     def __init__(self, ):
@@ -218,8 +241,10 @@ class Compare_tworuns_strokecount_cols_in_one_csv(tk.Frame):
         # User select csv file, make df
         file_path = os.path.abspath(filedialog.askopenfilename())
         print(file_path)
-        head, tail = os.path.split(file_path)
-        self.out = os.path.sep.join([head, 'GCvsPEtests.txt'])
+        self.headstrokes, tail = os.path.split(file_path)
+        self.headstrokes = os.path.sep.join([self.headstrokes, 'plots-stats'])
+        self.out = os.path.sep.join([self.headstrokes, 'GCvsPEtests.txt'])
+        #self.out = os.path.sep.join(['plots-stats', self.out])
         print('output to', self.out)
 
         self.df = pd.read_csv(file_path, header=0)
@@ -229,10 +254,8 @@ class Compare_tworuns_strokecount_cols_in_one_csv(tk.Frame):
         # get GC and PE strokes data from the csv file, set alpha
         try:
             self.gcdata = self.df['GCstrokes']
-            self.gcredata = self.df['GCrerun']
             self.pedata = self.df['PEstrokes']
-            self.peredata1 = self.df['PErerun1']
-            self.peredata2 = self.df['PErerun2']
+
         except KeyError:
             messagebox.showerror(title='WRONG FILE', message='You must select a csv output with columns of stroke count runs, \nand select two columns (runs) to compare.')
             print('You must select a csv output with columns of stroke count runs, \nand select two columns (runs) to compare.')
@@ -256,11 +279,15 @@ class Compare_tworuns_strokecount_cols_in_one_csv(tk.Frame):
         self.master.attributes('-topmost', True)
         self.master.focus_force()
 
-        self.master.focus_set()
-        self.data1_name = simpledialog.askstring(title='DATA-1 Key', prompt='Enter exact column name for dataset 1: ', parent=self.master)
+##        self.master.focus_set()
+##        self.data1_name = simpledialog.askstring(title='DATA-1 Key', prompt='Enter exact column name for dataset 1: ', parent=self.master)
+        self.data1_name = self.headers[2]
 
-        self.master.focus_set()
-        self.data2_name = simpledialog.askstring(title='DATA-2 Key', prompt='Enter exact column name for dataset 2: ', parent=self.master)
+##        self.master.focus_set()
+##        self.data2_name = simpledialog.askstring(title='DATA-2 Key', prompt='Enter exact column name for dataset 2: ', parent=self.master)
+        self.data2_name = self.headers[3]
+        print('data1', self.data1_name)
+        print('data1 name type', type(self.data1_name))
 
 
 
@@ -495,14 +522,14 @@ class Compare_tworuns_strokecount_cols_in_one_csv(tk.Frame):
         print('\noutput file is here:\n', self.output_fn)
 ##        self.master.destroy()
 
-        GOF_distribution(self.data1, self.data2, self.data1_name, self.data2_name, self.data1_pubname, self.data2_pubname)
+        GOF_distribution(self.data1, self.data2, self.data1_name, self.data2_name, self.data1_pubname, self.data2_pubname, self.headstrokes,)
 
-        return None
+        return self.data1, self.data2, self.data1_name, self.data2_name, self.data1_pubname, self.data2_pubname
             
 
 class GOF_distribution(Compare_tworuns_strokecount_cols_in_one_csv):
 
-    def __init__(self, data1, data2, data1_name, data2_name, data1_pubname, data2_pubname ):
+    def __init__(self, data1, data2, data1_name, data2_name, data1_pubname, data2_pubname, outdir, ):
 
         self.data1 = data1
         self.data2 = data2
@@ -510,45 +537,75 @@ class GOF_distribution(Compare_tworuns_strokecount_cols_in_one_csv):
         self.data2_name = data2_name
         self.data1_pubname = data1_pubname
         self.data2_pubname = data2_pubname
+        self.headstrokes = outdir
 
+        # data1
         fig = sm.qqplot(self.data1, line='45')
         fname = '-'.join([self.data1_name,'QQ.png'])
+        fname = os.path.sep.join([self.headstrokes, fname])
         plt.title(self.data1_name)
         plt.savefig(fname)
         plt.show()
 
-
+        # data2
         fig = sm.qqplot(self.data2, line='45')
         fname = '-'.join([self.data2_name,'QQ.png'])
+        fname = os.path.sep.join([self.headstrokes, fname])
         plt.title(self.data2_name)
         plt.savefig(fname)
         plt.show()
-        
+
+        # histograms
+        # data1
+        fig = sns.histplot(data=self.data1, x=self.data1, binrange=(0,1400), binwidth=50)
+        plt.ylim(0, 50)
+        plt.ylabel("Images")
+        plt.title(self.data1_name)
+        fname = '-'.join([self.data1_name,'Histogram.png'])
+        fname = os.path.sep.join([self.headstrokes, fname])
+        plt.savefig(fname)
+        plt.show()
+
+        # data2
+        fig = sns.histplot(data=self.data2, x=self.data2, binrange=(0,1400), binwidth=50)
+        plt.ylim(0, 50)
+        plt.ylabel("Images")
+        plt.title(self.data2_name)
+        fname = '-'.join([self.data2_name,'Histogram.png'])
+        fname = os.path.sep.join([self.headstrokes, fname])
+        plt.savefig(fname)
+        plt.show()
+
         # potential distributions
-        dists = ['hist', 'kde', 'ecdf', ]
+        dists = ['kde', 'ecdf', ]
         
         # distribution graphical probability plots
         for dist_type in dists:
             
 ##            print('\nDISTRIBUTION PROBABILITY PLOTS\n')
 ##            print('distribution', dist_type)
-##            print('\n', data1_name)
             sns.set_style('white')
             sns.set_context('paper', font_scale = 2)
+
+            # data1
             fig = sns.displot(data=self.data1, x=self.data1, kind=dist_type, aspect=1.5)
+            fname = '-'.join([dist_type, self.data1_name, '.png'])
+            fname = os.path.sep.join([self.headstrokes, fname])
             plt.title(dist_type)
             plt.xlabel(self.data1_pubname)
-            fname = '-'.join([dist_type, self.data1_name, '.png'])
+            plt.xlim(0, 1400)
             plt.savefig(fname=fname, dpi=300, )
             plt.show()
 
-##            print('\n', data2_name)
+            # data2
             sns.set_style('white')
             sns.set_context('paper', font_scale = 2)
-            sns.displot(data=self.data2, x= self.data2, kind=dist_type, aspect=1.5)
+            fig = sns.displot(data=self.data2, x= self.data2, kind=dist_type, aspect=1.5)
             plt.title(dist_type)
             plt.xlabel(self.data2_pubname)
+            plt.xlim(0, 1400)
             fname = '-'.join([dist_type, self.data2_name, '.png'])
+            fname = os.path.sep.join([self.headstrokes, fname])
             plt.savefig(fname=fname, dpi=300, )
             plt.show()
 
@@ -556,6 +613,7 @@ class GOF_distribution(Compare_tworuns_strokecount_cols_in_one_csv):
 ##            print('\nBIVARIATE PLOTS\n')
 ##            print('distribution', dist_type)
 ##            print('\n', data1_name, ' vs. ', data2_name)
+
             name = '-'.join([self.data1_pubname, 'vs', self.data2_pubname])
             sns.set_style('white')
             sns.set_context('paper', font_scale = 2)
@@ -563,7 +621,11 @@ class GOF_distribution(Compare_tworuns_strokecount_cols_in_one_csv):
             plt.title(name)
             plt.xlabel(self.data1_pubname)
             plt.ylabel(self.data2_pubname)
+            plt.xlim(0, 1400)
+            plt.ylim(0, 1400)
+
             fname = '-'.join([dist_type, name, '.png'])
+            fname = os.path.sep.join([self.headstrokes, fname])
             plt.savefig(fname=fname, dpi=300, )
             plt.show()
 
@@ -573,6 +635,9 @@ class GOF_distribution(Compare_tworuns_strokecount_cols_in_one_csv):
 
 
 if __name__ == '__main__':
+    if not os.path.exists('plots-stats',):
+        os.makedirs(r'plots-stats',)
+        
     print('running main')
     main()
    

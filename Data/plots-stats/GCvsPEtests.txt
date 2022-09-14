@@ -1,0 +1,61 @@
+Descriptive Statistics
+         GCstrokes   PEstrokes
+count   300.000000  300.000000
+mean    577.083333  221.570000
+std     248.447937  149.453134
+min     129.000000    0.000000
+25%     394.500000  105.750000
+50%     527.500000  201.500000
+75%     724.500000  323.000000
+max    1356.000000  744.000000
+
+ alpha = 0.001 
+ GCstrokes N = 300 
+ PEstrokes N = 300 
+
+=====================================================
+Kolmogorov–Smirnov test if GCstrokes and PEstrokes are from identical distributions
+RESULTS:
+KstestResult(statistic=0.6266666666666667, pvalue=1.662024650833774e-55) 
+p < 0.001   GCstrokes and PEstrokes have different distributions
+
+=====================================================
+Kolmogorov–Smirnov test for normality for each dataset
+RESULTS:
+GCstrokes is normal distribution test is inconclusive, alpha is 0.001 (p = 0.0 )
+Running in exact mode.KstestResult(statistic=1.0, pvalue=0.0)
+
+GCstrokes is normal distribution test is inconclusive, alpha is 0.001 (p = 0.0 )
+Running in approx mode.KstestResult(statistic=1.0, pvalue=0.0)
+
+GCstrokes is normal distribution test is inconclusive, alpha is 0.001 (p = 0.0 )
+Running in asymp mode.KstestResult(statistic=1.0, pvalue=0.0)
+
+GCstrokes is normal distribution test is inconclusive, alpha is 0.001 (p = 0.0 )
+Running in exact mode.KstestResult(statistic=1.0, pvalue=0.0)
+
+GCstrokes is normal distribution test is inconclusive, alpha is 0.001 (p = 0.0 )
+Running in approx mode.KstestResult(statistic=1.0, pvalue=0.0)
+
+GCstrokes is normal distribution test is inconclusive, alpha is 0.001 (p = 0.0 )
+Running in asymp mode.KstestResult(statistic=1.0, pvalue=0.0)
+
+GCstrokes is not normally distributed, p < 0.001 (p = 0.0 )
+PEstrokes is not normally distributed, p < 0.001  (p = 0.0 )
+
+=====================================================
+GCstrokes and PEstrokes are not normally distributed, using Wilcoxon nonparametric tests
+RESULTS:
+Wilcoxon nonparametric test that GCstrokes is the same as PEstrokes 
+ WilcoxonResult(statistic=517.0, pvalue=1.0230128968819459e-48) 
+p < 0.001 GCstrokes is different from PEstrokes 
+
+Wilcoxon nonparametric test GCstrokes is less than PEstrokes 
+ WilcoxonResult(statistic=44633.0, pvalue=1.0) 
+p > 0.001 GCstrokes is not less than PEstrokes 
+
+Wilcoxon nonparametric test that GCstrokes is greater PEstrokes 
+ WilcoxonResult(statistic=44633.0, pvalue=5.1150644844097295e-49) 
+p < 0.001   GCstrokes is greater than PEstrokes 
+
+=====================================================
