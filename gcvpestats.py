@@ -559,7 +559,7 @@ class GOF_distribution(Compare_tworuns_strokecount_cols_in_one_csv):
         # data1
         fig = sns.histplot(data=self.data1, x=self.data1, binrange=(0,1400), binwidth=50)
         plt.ylim(0, 50)
-        plt.ylabel("Images")
+        plt.ylabel("Number of Images")
         plt.title(self.data1_name)
         fname = '-'.join([self.data1_name,'Histogram.png'])
         fname = os.path.sep.join([self.headstrokes, fname])
@@ -569,7 +569,7 @@ class GOF_distribution(Compare_tworuns_strokecount_cols_in_one_csv):
         # data2
         fig = sns.histplot(data=self.data2, x=self.data2, binrange=(0,1400), binwidth=50)
         plt.ylim(0, 50)
-        plt.ylabel("Images")
+        plt.ylabel("Number of Images")
         plt.title(self.data2_name)
         fname = '-'.join([self.data2_name,'Histogram.png'])
         fname = os.path.sep.join([self.headstrokes, fname])
