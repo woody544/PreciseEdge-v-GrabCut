@@ -54,7 +54,7 @@ Wilcoxon nonparametric test GCstrokes is less than PEstrokes
  WilcoxonResult(statistic=44633.0, pvalue=1.0) 
 p > 0.001 GCstrokes is not less than PEstrokes 
 
-Wilcoxon nonparametric test that GCstrokes is greater PEstrokes 
+Wilcoxon nonparametric test that GCstrokes is greater than PEstrokes 
  WilcoxonResult(statistic=44633.0, pvalue=5.1150644844097295e-49) 
 p < 0.001   GCstrokes is greater than PEstrokes 
 

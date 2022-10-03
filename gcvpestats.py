@@ -500,7 +500,7 @@ class Compare_tworuns_strokecount_cols_in_one_csv(tk.Frame):
                 print(line)
                 self.out.write(line)
 
-            line = ' '.join(['\nWilcoxon nonparametric test that', self.data1_name, 'is greater', self.data2_name, '\n',
+            line = ' '.join(['\nWilcoxon nonparametric test that', self.data1_name, 'is greater than', self.data2_name, '\n',
                   str(wilcoxon(self.data1, self.data2, alternative='greater')),'\n'])
             print(line)
             self.out.write(line)
