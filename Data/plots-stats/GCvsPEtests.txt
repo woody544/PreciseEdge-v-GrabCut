@@ -31,14 +31,14 @@ Running in approx mode.KstestResult(statistic=1.0, pvalue=0.0)
 GCstrokes is normal distribution test is inconclusive, alpha is 0.001 (p = 0.0 )
 Running in asymp mode.KstestResult(statistic=1.0, pvalue=0.0)
 
-GCstrokes is normal distribution test is inconclusive, alpha is 0.001 (p = 0.0 )
-Running in exact mode.KstestResult(statistic=1.0, pvalue=0.0)
+PEstrokes is normal distribution test is inconclusive, alpha is 0.001 (p = 0.0 )
+Running in exact mode.KstestResult(statistic=0.9966349954248336, pvalue=0.0)
 
-GCstrokes is normal distribution test is inconclusive, alpha is 0.001 (p = 0.0 )
-Running in approx mode.KstestResult(statistic=1.0, pvalue=0.0)
+PEstrokes is normal distribution test is inconclusive, alpha is 0.001 (p = 0.0 )
+Running in approx mode.KstestResult(statistic=0.9966349954248336, pvalue=0.0)
 
-GCstrokes is normal distribution test is inconclusive, alpha is 0.001 (p = 0.0 )
-Running in asymp mode.KstestResult(statistic=1.0, pvalue=0.0)
+PEstrokes is normal distribution test is inconclusive, alpha is 0.001 (p = 0.0 )
+Running in asymp mode.KstestResult(statistic=0.9966349954248336, pvalue=0.0)
 
 GCstrokes is not normally distributed, p < 0.001 (p = 0.0 )
 PEstrokes is not normally distributed, p < 0.001  (p = 0.0 )
