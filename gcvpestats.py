@@ -394,12 +394,12 @@ class Compare_tworuns_strokecount_cols_in_one_csv(tk.Frame):
 
         if math.isclose(peksteststat, 1.0, rel_tol=1e-02)  and pekstestp == 0:
             for mode in modes: 
-                line = ' '.join([self.data1_name, 'is normal distribution test is inconclusive, alpha is', str(self.alpha), '(p =', str(gckstestp), ')\nRunning in', mode, 'mode.'])
+                line = ' '.join([self.data2_name, 'is normal distribution test is inconclusive, alpha is', str(self.alpha), '(p =', str(gckstestp), ')\nRunning in', mode, 'mode.'])
                 self.out.write(line)
                 print(line)
                 peksteststat, pekstestp =  kstest(self.data2, 'norm', mode='async')
                 print('PEstat2', peksteststat, pekstestp)
-                self.out.write(str(kstest(self.data1, 'norm', mode='async'))+'\n\n')            
+                self.out.write(str(kstest(self.data2, 'norm', mode='async'))+'\n\n')            
 
         if gckstestp < self.alpha:
             line = ' '.join([self.data1_name, 'is not normally distributed, p <', str(self.alpha), '(p =', str(gckstestp), ')\n'])
